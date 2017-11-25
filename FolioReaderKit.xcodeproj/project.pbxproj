@@ -61,6 +61,7 @@
 		1A9590151D397C1300D56699 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A9590141D397C1300D56699 /* Images.xcassets */; };
 		1A9590171D397CAF00D56699 /* FolioReaderKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 1A9590161D397CAF00D56699 /* FolioReaderKit.podspec */; };
 		3AD5EEB91D9433C100E42810 /* FolioReaderWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD5EEB81D9433C100E42810 /* FolioReaderWebView.swift */; };
+		79782F3F1FC98DD500724EAF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79782F3D1FC98DD500724EAF /* Localizable.strings */; };
 		B0D6990F1D035FA2003B4CCD /* FolioReaderKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B0D6990E1D035FA2003B4CCD /* FolioReaderKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0D699161D035FA2003B4CCD /* FolioReaderKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0D6990B1D035FA2003B4CCD /* FolioReaderKit.framework */; };
 		B0D6991B1D035FA2003B4CCD /* FolioReaderKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D6991A1D035FA2003B4CCD /* FolioReaderKitTests.swift */; };
@@ -139,6 +140,8 @@
 		1A9590141D397C1300D56699 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1A9590161D397CAF00D56699 /* FolioReaderKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FolioReaderKit.podspec; sourceTree = "<group>"; };
 		3AD5EEB81D9433C100E42810 /* FolioReaderWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolioReaderWebView.swift; sourceTree = "<group>"; };
+		79782F3E1FC98DD500724EAF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		79782F421FC99B0A00724EAF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B0D6990B1D035FA2003B4CCD /* FolioReaderKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FolioReaderKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0D6990E1D035FA2003B4CCD /* FolioReaderKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolioReaderKit.h; sourceTree = "<group>"; };
 		B0D699101D035FA2003B4CCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -250,6 +253,7 @@
 		1A958F251D397BE900D56699 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				79782F2D1FC9898A00724EAF /* Translations */,
 				1A958F271D397BE900D56699 /* Fonts */,
 				1A9590141D397C1300D56699 /* Images.xcassets */,
 				1A958F261D397BE900D56699 /* Bridge.js */,
@@ -311,6 +315,14 @@
 				1A958F3B1D397BE900D56699 /* Raleway-Regular.ttf */,
 			);
 			path = Raleway;
+			sourceTree = "<group>";
+		};
+		79782F2D1FC9898A00724EAF /* Translations */ = {
+			isa = PBXGroup;
+			children = (
+				79782F3D1FC98DD500724EAF /* Localizable.strings */,
+			);
+			path = Translations;
 			sourceTree = "<group>";
 		};
 		B0D699011D035FA1003B4CCD = {
@@ -473,6 +485,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 			);
 			mainGroup = B0D699011D035FA1003B4CCD;
 			productRefGroup = B0D6990C1D035FA2003B4CCD /* Products */;
@@ -502,6 +515,7 @@
 				1A958FAF1D397BE900D56699 /* Bridge.js in Resources */,
 				1A958FBC1D397BE900D56699 /* Raleway-Bold.ttf in Resources */,
 				1A958FB71D397BE900D56699 /* Lato-Regular.ttf in Resources */,
+				79782F3F1FC98DD500724EAF /* Localizable.strings in Resources */,
 				1A9590121D397BE900D56699 /* Style.css in Resources */,
 				1A958FB01D397BE900D56699 /* Andada-Bold.otf in Resources */,
 				1A9590171D397CAF00D56699 /* FolioReaderKit.podspec in Resources */,
@@ -598,6 +612,18 @@
 			targetProxy = B0D699171D035FA2003B4CCD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		79782F3D1FC98DD500724EAF /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79782F3E1FC98DD500724EAF /* ru */,
+				79782F421FC99B0A00724EAF /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B0D6991D1D035FA2003B4CCD /* Debug */ = {
