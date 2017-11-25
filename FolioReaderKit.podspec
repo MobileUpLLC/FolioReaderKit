@@ -24,7 +24,8 @@ Pod::Spec.new do |s|
   s.resources = [
     'Source/**/*.{js,css}',
     'Source/Resources/*.xcassets',
-    'Source/Resources/Fonts/**/*.{otf,ttf}'
+    'Source/Resources/Fonts/**/*.{otf,ttf}',
+    'Source/Resources/Translations/**/*.strings'
   ]
   s.public_header_files = 'Source/*.h'
 
