@@ -96,6 +96,7 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
         tapGestureRecognizer.numberOfTapsRequired = 1
         tapGestureRecognizer.delegate = self
         webView?.addGestureRecognizer(tapGestureRecognizer)
+        webView?.scrollView.scrollsToTop = false
     }
 
     required public init?(coder aDecoder: NSCoder) {
