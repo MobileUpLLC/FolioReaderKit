@@ -243,8 +243,44 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
 
             return false
         } else if scheme == "file" {
+            let anchorFromURL = url.fragment
+            
+            // Handle internal url
+            if ((url.path as NSString).pathExtension != "") {
+                
+                var pathComponent = (self.book.opfResource.href as? NSString)?.deletingLastPathComponent
+                guard let base = ((pathComponent == nil || pathComponent?.isEmpty == true) ? self.book.name : pathComponent) else {
+                    return true
+                }
+                
+                let path = url.path
+                let splitedPath = path.components(separatedBy: base)
+                
+                // Return to avoid crash
+                if (splitedPath.count <= 1 || splitedPath[1].isEmpty) {
+                    return true
+                }
+                
+                let href = splitedPath[1].trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+                let hrefPage = (self.folioReader.readerCenter?.findPageByHref(href) ?? 0) + 1
+                
+                if (hrefPage == pageNumber) {
+                    // Handle internal #anchor
+                    if anchorFromURL != nil {
+                        return false
+                    }
+                }
+                
+                return false
+            }
+            
             // Handle internal #anchor
-            return false
+            if anchorFromURL != nil {
+                return false
+            }
+            
+            return true
+            
         } else if scheme == "mailto" {
             print("Email")
             return true
