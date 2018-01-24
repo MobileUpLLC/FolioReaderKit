@@ -377,6 +377,36 @@ internal extension String {
 
         return String(format: "%02.f:%02.f", min, sec)
     }
+
+    // MARK: - NSString helpers
+
+    var lastPathComponent: String {
+        return (self as NSString).lastPathComponent
+    }
+
+    var deletingLastPathComponent: String {
+        return (self as NSString).deletingLastPathComponent
+    }
+
+    var deletingPathExtension: String {
+        return (self as NSString).deletingPathExtension
+    }
+
+    var pathExtension: String {
+        return (self as NSString).pathExtension
+    }
+
+    var abbreviatingWithTildeInPath: String {
+        return (self as NSString).abbreviatingWithTildeInPath
+    }
+
+    func appendingPathComponent(_ str: String) -> String {
+        return (self as NSString).appendingPathComponent(str)
+    }
+
+    func appendingPathExtension(_ str: String) -> String {
+        return (self as NSString).appendingPathExtension(str) ?? self+"."+str
+    }
 }
 
 internal extension UIImage {
@@ -499,10 +529,10 @@ internal extension UIViewController {
 
     func setCloseButton(withConfiguration readerConfig: FolioReaderConfig) {
         let closeImage = UIImage(readerImageNamed: "icon-navbar-close")?.ignoreSystemTint(withConfiguration: readerConfig)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(dismiss as (Void) -> Void))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(dismiss as () -> Void))
     }
 
-    func dismiss() {
+    @objc func dismiss() {
         self.dismiss(nil)
     }
 
@@ -529,7 +559,7 @@ internal extension UIViewController {
         navBar?.showBottomHairline()
         navBar?.isTranslucent = translucent
         navBar?.tintColor = tintColor
-        navBar?.titleTextAttributes = [NSForegroundColorAttributeName: titleColor, NSFontAttributeName: font]
+        navBar?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: titleColor, NSAttributedStringKey.font: font]
     }
 }
 
