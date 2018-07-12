@@ -209,7 +209,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if #available(iOS 9, *) {
+        if #available(iOS 9, *), !highlightShown {
             highlightShown = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 guard let items = self.navigationItem.rightBarButtonItems, items.count >= 2 else { return }
