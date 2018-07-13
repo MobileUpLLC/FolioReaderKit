@@ -209,17 +209,19 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-
         if #available(iOS 9, *), !highlightShown {
             highlightShown = true
-            let chaptersList = FolioNavigationItemHighlighterContent(data: .chaptersList,
-                                                                     item: navigationItem.rightBarButtonItems![1],
-                                                                     side: .right)
-            let fontOptions = FolioNavigationItemHighlighterContent(data: .fontOptions,
-                                                                    item: navigationItem.rightBarButtonItems![0],
-                                                                    side: .right)
-            FolioNavigationItemHighlighterViewController.present(self,
-                                                                 content: [chaptersList, fontOptions])
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                guard let items = self.navigationItem.rightBarButtonItems, items.count >= 2 else { return }
+                let chaptersList = FolioNavigationItemHighlighterContent(data: .chaptersList,
+                                                                         item: items[1],
+                                                                         side: .right)
+                let fontOptions = FolioNavigationItemHighlighterContent(data: .fontOptions,
+                                                                        item: items[0],
+                                                                        side: .right)
+                FolioNavigationItemHighlighterViewController.present(self,
+                                                                     content: [chaptersList, fontOptions])
+            }
         }
     }
 
