@@ -27,18 +27,18 @@ internal struct FolioNavigationItemHighlighterContent {
         var title: String {
             switch self {
             case .chaptersList:
-                return "Открывайте оглавление"
+                return "Используйте возможность быстрого перехода к конкретной главе и к Вашим заметкам"
             case .fontOptions:
-                return "Настройте шрифт"
+                return "Настройте удобный Вам режим чтения:"
             }
         }
         
         var description: String? {
             switch self {
             case .chaptersList:
-                return "чтобы найти интересующую вас тему"
+                return nil
             case .fontOptions:
-                return "и другие параметры чтения"
+                return "день/ночь (цвет фона), размер и тип шрифта, способ перелистывания страниц (вертикальный или горизонтальный)"
             }
         }
     }
