@@ -216,11 +216,12 @@ internal extension String {
     }
 
     func stripHtml() -> String {
-        return self.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
-    }
-
-    func stripLineBreaks() -> String {
-        return self.replacingOccurrences(of: "\n", with: "", options: .regularExpression)
+        if let data = self.data(using: String.Encoding.unicode),
+            let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+            return attributedString.string
+        } else {
+            return self.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression).replacingOccurrences(of: "\n", with: "", options: .regularExpression)
+        }
     }
 
     /**

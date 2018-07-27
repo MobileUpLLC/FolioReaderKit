@@ -32,7 +32,7 @@ class FolioReaderQuoteShare: UIViewController {
     init(initWithText shareText: String, readerConfig: FolioReaderConfig, folioReader: FolioReader, book: FRBook) {
         self.folioReader = folioReader
         self.readerConfig = readerConfig
-        self.quoteText = shareText.stripLineBreaks().stripHtml()
+        self.quoteText = shareText.stripHtml()
         self.book = book
 
         super.init(nibName: nil, bundle: Bundle.frameworkBundle())
