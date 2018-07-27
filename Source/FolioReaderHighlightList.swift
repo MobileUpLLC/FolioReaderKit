@@ -79,7 +79,7 @@ class FolioReaderHighlightList: UITableViewController {
         dateLabel.frame = CGRect(x: 20, y: 20, width: view.frame.width-40, height: dateLabel.frame.height)
 
         // Text
-        let cleanString = highlight.content.stripHtml().truncate(250, trailing: "...").stripLineBreaks()
+        let cleanString = highlight.content.stripHtml().truncate(250, trailing: "...")
         let text = NSMutableAttributedString(string: cleanString)
         let range = NSRange(location: 0, length: text.length)
         let paragraph = NSMutableParagraphStyle()
@@ -123,7 +123,7 @@ class FolioReaderHighlightList: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let highlight = highlights[(indexPath as NSIndexPath).row]
 
-        let cleanString = highlight.content.stripHtml().truncate(250, trailing: "...").stripLineBreaks()
+        let cleanString = highlight.content.stripHtml().truncate(250, trailing: "...")
         let text = NSMutableAttributedString(string: cleanString)
         let range = NSRange(location: 0, length: text.length)
         let paragraph = NSMutableParagraphStyle()
