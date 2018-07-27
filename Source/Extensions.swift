@@ -216,7 +216,7 @@ internal extension String {
     }
 
     func stripHtml() -> String {
-        return self.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+        return self.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression).replacingOccurrences(of: "&nbsp;", with: " ", options: .regularExpression)
     }
 
     func stripLineBreaks() -> String {
