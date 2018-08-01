@@ -29,7 +29,7 @@ internal struct FolioNavigationItemHighlighterContent {
             case .chaptersList:
                 return "Используйте возможность быстрого перехода к конкретной главе и к Вашим заметкам"
             case .fontOptions:
-                return "Настройте удобный Вам режим чтения:"
+                return "Настройте шрифт"
             }
         }
         
@@ -38,7 +38,7 @@ internal struct FolioNavigationItemHighlighterContent {
             case .chaptersList:
                 return nil
             case .fontOptions:
-                return "день/ночь (цвет фона), размер и тип шрифта, способ перелистывания страниц (вертикальный или горизонтальный)"
+                return "и другие параметры чтения"
             }
         }
     }
