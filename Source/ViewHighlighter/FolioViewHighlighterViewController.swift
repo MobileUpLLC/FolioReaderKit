@@ -13,7 +13,7 @@ private let minInset: CGFloat = 100
 private let inset: CGFloat = 24
 
 @available(iOS 9, *)
-class FolioViewHighlighterViewController: UIViewController {
+internal class FolioViewHighlighterViewController: UIViewController {
     
     let button: UIButton = {
         let button = UIButton()
@@ -156,5 +156,14 @@ class FolioViewHighlighterViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             viewControllerToPresent.present(vc, animated: true)
         }
+    }
+}
+
+var isFontsMenuHighlightShown: Bool {
+    get {
+        return UserDefaults.standard.bool(forKey: "fontsMenuHighlightShown")
+    }
+    set {
+        UserDefaults.standard.set(newValue, forKey: "fontsMenuHighlightShown")
     }
 }

@@ -48,12 +48,11 @@ internal struct FolioNavigationItemHighlighterContent {
     }
 }
 
-var highlightShown: Bool {
+var isNavigationItemHighlightShown: Bool {
     get {
-        return UserDefaults.standard.bool(forKey: "highlightShown")
+        return UserDefaults.standard.bool(forKey: "navigationItemHighlightShown")
     }
     set {
-        UserDefaults.standard.set(newValue, forKey: "highlightShown")
-        UserDefaults.standard.synchronize()
+        UserDefaults.standard.set(newValue, forKey: "navigationItemHighlightShown")
     }
 }
