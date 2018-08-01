@@ -209,8 +209,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if #available(iOS 9, *), !highlightShown {
-            highlightShown = true
+        if #available(iOS 9, *), isNavigationItemHighlightShown == false {
+            isNavigationItemHighlightShown = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 guard let items = self.navigationItem.rightBarButtonItems, items.count >= 2 else { return }
                 let chaptersList = FolioNavigationItemHighlighterContent(data: .chaptersList,
@@ -1334,7 +1334,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         
         let menu = FolioReaderFontsMenu(folioReader: folioReader, readerConfig: readerConfig)
         menu.modalPresentationStyle = .custom
-
+        
         animator = ZFModalTransitionAnimator(modalViewController: menu)
         animator.isDragable = false
         animator.bounces = false
@@ -1342,9 +1342,15 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         animator.behindViewScale = 1
         animator.transitionDuration = 0.6
         animator.direction = ZFModalTransitonDirection.bottom
-
+        
         menu.transitioningDelegate = animator
-        self.present(menu, animated: true, completion: nil)
+        
+        self.present(menu, animated: true) {
+            if #available(iOS 9, *), isFontsMenuHighlightShown == false {
+                isFontsMenuHighlightShown = true
+                FolioViewHighlighterViewController.present(menu, viewForHighlight: menu.menuView, title: "Настройте удобный Вам режим чтения:", description: "день/ночь (цвет фона), размер и тип шрифта, способ перелистывания страниц (вертикальный или горизонтальный)")
+            }
+        }
     }
 
     /**
