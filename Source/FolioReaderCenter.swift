@@ -158,6 +158,10 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.scrollsToTop = false
         enableScrollBetweenChapters(scrollEnabled: true)
         view.addSubview(collectionView)
+        
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        }
 
         // Activity Indicator
         self.activityIndicator.activityIndicatorViewStyle = .gray
@@ -663,7 +667,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         delegate?.pageDidAppear?(currentPage)
         delegate?.pageItemChanged?(self.getCurrentPageItemNumber())
-
+        
         completion?()
     }
 
@@ -852,6 +856,26 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         
         return webViewPage
     }
+    
+    public func getCurrentPageProgress() -> Float {
+        guard let page = currentPage, let webView = page.webView else { return 0 }
+        
+        let pageSize = self.readerConfig.isDirection(pageHeight, self.pageWidth, pageHeight)
+        let contentSize = page.webView?.scrollView.contentSize.forDirection(withConfiguration: self.readerConfig) ?? 0
+        let totalPages = ((pageSize != 0) ? Int(ceil(contentSize / pageSize)) : 0)
+        let currentPageItem = getCurrentPageItemNumber()
+        
+        if totalPages > 0 {
+            var progress = Float((currentPageItem * 100) / totalPages)
+            
+            if progress < 0 { progress = 0 }
+            if progress > 100 { progress = 100 }
+            
+            return progress
+        }
+        
+        return 0
+    }
 
     public func changePageItemToPrevious(_ completion: (() -> Void)? = nil) {
         // TODO: It was implemented for horizontal orientation.
@@ -968,15 +992,23 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
      Find and return the current chapter resource.
      */
     public func getCurrentChapter() -> FRResource? {
-        for item in self.book.flatTableOfContents {
-            if
-                let reference = self.book.spine.spineReferences[safe: (self.currentPageNumber - 1)],
-                let resource = item.resource,
-                (resource == reference.resource) {
-                return item.resource
+        var foundResource: FRResource?
+
+        func search(_ items: [FRTocReference]) {
+            for item in items {
+                guard foundResource == nil else { break }
+
+                if let reference = book.spine.spineReferences[safe: (currentPageNumber - 1)], let resource = item.resource, resource == reference.resource {
+                    foundResource = resource
+                    break
+                } else if let children = item.children, children.isEmpty == false {
+                    search(children)
+                }
             }
         }
-        return nil
+        search(book.flatTableOfContents)
+
+        return foundResource
     }
 
     /**
@@ -997,19 +1029,25 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
      Find and return the current chapter name.
      */
     public func getCurrentChapterName() -> String? {
-        for item in self.book.flatTableOfContents {
-            guard
-                let reference = self.book.spine.spineReferences[safe: (self.currentPageNumber - 1)],
-                let resource = item.resource,
-                (resource == reference.resource),
-                let title = item.title else {
-                    continue
+        var foundChapterName: String?
+        
+        func search(_ items: [FRTocReference]) {
+            for item in items {
+                guard foundChapterName == nil else { break }
+                
+                if let reference = self.book.spine.spineReferences[safe: (self.currentPageNumber - 1)],
+                    let resource = item.resource,
+                    resource == reference.resource,
+                    let title = item.title {
+                    foundChapterName = title
+                } else if let children = item.children, children.isEmpty == false {
+                    search(children)
+                }
             }
-
-            return title
         }
-
-        return nil
+        search(self.book.flatTableOfContents)
+        
+        return foundChapterName
     }
 
     // MARK: Public page methods
@@ -1385,6 +1423,18 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         if UIDevice.current.userInterfaceIdiom == .pad {
             nav.modalPresentationStyle = .formSheet
         }
+        present(nav, animated: true, completion: nil)
+    }
+    
+    /**
+     Present add highlight note
+     */
+    func presentAddHighlightNote(_ highlight: Highlight, edit: Bool) {
+        let addHighlightView = FolioReaderAddHighlightNote(withHighlight: highlight, folioReader: folioReader, readerConfig: readerConfig)
+        addHighlightView.isEditHighlight = edit
+        let nav = UINavigationController(rootViewController: addHighlightView)
+        nav.modalPresentationStyle = .formSheet
+        
         present(nav, animated: true, completion: nil)
     }
 }
