@@ -224,6 +224,10 @@ internal extension String {
         }
     }
 
+    func stripLineBreaks() -> String {
+        return self.replacingOccurrences(of: "\n", with: "", options: .regularExpression)
+    }
+
     /**
      Converts a clock time such as `0:05:01.2` to seconds (`Double`)
 
