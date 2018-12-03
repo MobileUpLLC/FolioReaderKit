@@ -35,7 +35,7 @@ internal class FolioNavigationItemHighlighterViewController: UIViewController {
         button.layer.cornerRadius = 24
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         button.titleLabel?.textColor = .white
-        button.backgroundColor = UIColor(red: 0.22, green: 0.60, blue: 0.33, alpha: 1)
+        button.backgroundColor = FolioReaderConfig().tintColor
         return button
     }()
     let labelsStackView: UIStackView = {
