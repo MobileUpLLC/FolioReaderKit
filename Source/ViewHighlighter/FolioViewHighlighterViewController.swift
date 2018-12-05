@@ -11,6 +11,7 @@ import UIKit
 private let buttonHeight: CGFloat = 48
 private let minInset: CGFloat = 100
 private let inset: CGFloat = 24
+private let titleLineSpacing: CGFloat = 5
 
 @available(iOS 9, *)
 internal class FolioViewHighlighterViewController: UIViewController {
@@ -29,7 +30,7 @@ internal class FolioViewHighlighterViewController: UIViewController {
         label.textAlignment = .center
         label.textColor = .white
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 21, weight: .bold)
+        label.font = .fedraSansPro(.bold, size: 20)
         return label
     }()
     
@@ -81,11 +82,11 @@ internal class FolioViewHighlighterViewController: UIViewController {
             view.addSubview(subview)
         }
         
-        button.setTitle("Ок", for: .normal)
+        button.setTitle("ОК", for: .normal)
         button.addTarget(self, action: #selector(okeyButtonTouched), for: .touchUpInside)
         
         if titleText?.isEmpty == false {
-            titleLabel.text = titleText
+            titleLabel.setText(titleText ?? "", lineSpacing: titleLineSpacing)
             labelsStackView.addArrangedSubview(titleLabel)
         }
         

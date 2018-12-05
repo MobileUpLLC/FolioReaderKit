@@ -9,6 +9,7 @@
 import UIKit
 
 let highlightRadiusLength: CGFloat = 35
+fileprivate let titleLineSpacing: CGFloat = 5
 
 @available(iOS 9, *)
 internal class FolioNavigationItemHighlighterViewController: UIViewController {
@@ -18,7 +19,7 @@ internal class FolioNavigationItemHighlighterViewController: UIViewController {
         label.textAlignment = .center
         label.textColor = .white
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 21, weight: .bold)
+        label.font = .fedraSansPro(.bold, size: 20)
         return label
     }()
     let descriptionLabel: UILabel = {
@@ -90,8 +91,8 @@ internal class FolioNavigationItemHighlighterViewController: UIViewController {
     }
 
     private func setText() {
-        button.setTitle(isLastContent ? "Ок" : "Далее", for: .normal)
-        titleLabel.text = content[currentContentIndex].data.title
+        button.setTitle(isLastContent ? "ОК" : "Далее", for: .normal)
+        titleLabel.setText(content[currentContentIndex].data.title, lineSpacing: titleLineSpacing)
         descriptionLabel.text = content[currentContentIndex].data.description
         let constant = content[currentContentIndex].itemRect!.origin.y + content[currentContentIndex].itemRect!.size.height + 40
         labelsStackView.topAnchor.constraint(equalTo: view.topAnchor,
