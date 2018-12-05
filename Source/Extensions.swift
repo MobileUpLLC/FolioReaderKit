@@ -540,3 +540,28 @@ extension Array {
         return indices ~= index ? self[index] : nil
     }
 }
+
+extension UILabel {
+    func setText(_ text: String, lineSpacing: CGFloat, alignment: NSTextAlignment = .center) {
+        let attributedTextMut = NSMutableAttributedString(string: text)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        paragraphStyle.alignment = alignment
+        
+        attributedTextMut.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attributedTextMut.length))
+        self.attributedText = attributedTextMut
+    }
+}
+
+extension UIFont {
+    enum FedraSansProtWeight: String {
+        case bold = "FedraSansPro-Bold"
+        case book = "FedraSansPro-Book"
+        case medium = "FedraSansPro-Medium"
+    }
+    
+    class func fedraSansPro(_ weight: FedraSansProtWeight, size: CGFloat) -> UIFont {
+        return UIFont(name: weight.rawValue, size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+}
