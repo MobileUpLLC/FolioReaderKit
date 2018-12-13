@@ -36,7 +36,7 @@ internal struct FolioNavigationItemHighlighterContent {
         var description: String? {
             switch self {
             case .chaptersList:
-                return "для перехода к нужной главе и Вашим заметкам"
+                return "для перехода к нужной главе или Вашим заметкам"
             case .fontOptions:
                 return "и другие параметры чтения"
             }
