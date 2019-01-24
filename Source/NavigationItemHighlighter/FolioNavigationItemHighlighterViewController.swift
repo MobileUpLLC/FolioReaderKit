@@ -81,6 +81,12 @@ internal class FolioNavigationItemHighlighterViewController: UIViewController {
         drawHole()
         setText()
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        redrawHoleWithDelay()
+    }
 
     @objc private func buttonDidTouch() {
         if isLastContent {
@@ -118,6 +124,13 @@ internal class FolioNavigationItemHighlighterViewController: UIViewController {
         labelsStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
         [titleLabel, descriptionLabel].forEach {
             labelsStackView.addArrangedSubview($0)
+        }
+    }
+    
+    private func redrawHoleWithDelay() {
+        blurView.mask = nil
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
+            self?.drawHole()
         }
     }
 
