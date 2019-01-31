@@ -269,12 +269,12 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
         menuView.addSubview(layoutDirection)
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        view.subviews.forEach( { $0.removeFromSuperview() } )
-        viewDidLoad()
-    }
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        
+//        view.subviews.forEach( { $0.removeFromSuperview() } )
+//        viewDidLoad()
+//    }
 
     // MARK: - SMSegmentView delegate
 
