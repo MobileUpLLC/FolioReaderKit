@@ -72,11 +72,12 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
 
     fileprivate var readerConfig: FolioReaderConfig
     fileprivate var folioReader: FolioReader
+    fileprivate static weak var folioCenter: FolioReaderCenter?
 
-    init(folioReader: FolioReader, readerConfig: FolioReaderConfig) {
+    init(folioReader: FolioReader, folioCenter: FolioReaderCenter, readerConfig: FolioReaderConfig) {
         self.readerConfig = readerConfig
         self.folioReader = folioReader
-
+        FolioReaderFontsMenu.folioCenter = folioCenter
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -269,12 +270,13 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
         menuView.addSubview(layoutDirection)
     }
     
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//        
-//        view.subviews.forEach( { $0.removeFromSuperview() } )
-//        viewDidLoad()
-//    }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)        
+        tapGesture()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: { [weak self] in
+            FolioReaderFontsMenu.folioCenter?.presentFontsMenu()
+        })
+    }
 
     // MARK: - SMSegmentView delegate
 
