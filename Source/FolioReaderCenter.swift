@@ -159,6 +159,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         enableScrollBetweenChapters(scrollEnabled: true)
         view.addSubview(collectionView)
         
+        collectionView.appendConstraints(to: view, withSafeArea: true)
+        
         if #available(iOS 11.0, *) {
             collectionView.contentInsetAdjustmentBehavior = .never
         }
@@ -1533,4 +1535,22 @@ extension FolioReaderCenter: FolioReaderChapterListDelegate {
         return bounds
     }
     
+}
+
+extension UIView {
+    func appendConstraints(to view: UIView, withSafeArea isWithSafeArea: Bool = false) {
+        guard #available(iOS 9.0, *) else { return }
+        translatesAutoresizingMaskIntoConstraints = false
+        if isWithSafeArea, #available(iOS 11.0, *) {
+            topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+            trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        } else {
+            topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        }
+    }
 }
