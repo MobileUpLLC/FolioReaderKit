@@ -91,11 +91,15 @@ public class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGe
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
         
+        let containerView = UIView(frame: view.frame)
+        view.addSubview(containerView)        
+        containerView.appendConstraints(to: view, withSafeArea: true)
+        
         // Tap gesture
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(FolioReaderFontsMenu.tapGesture))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.delegate = self
-        view.addGestureRecognizer(tapGesture)
+        containerView.addGestureRecognizer(tapGesture)
         
         // Menu view
         let visibleHeight: CGFloat = self.readerConfig.canChangeScrollDirection ? 222 : 170
