@@ -195,7 +195,7 @@ open class FolioReaderWebView: UIWebView {
     
     @objc func updateHighlightNote (_ sender: UIMenuController?) {
         if let highlightId = js("getHighlightId()") {
-            let highlightNote = Highlight.getById(withConfiguration: readerConfig, highlightId: highlightId)
+            guard let highlightNote = Highlight.getById(withConfiguration: readerConfig, highlightId: highlightId) else { return }
             self.folioReader.readerCenter?.presentAddHighlightNote(highlightNote, edit: true)
         }
     }
