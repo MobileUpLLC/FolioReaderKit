@@ -159,8 +159,6 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         enableScrollBetweenChapters(scrollEnabled: true)
         view.addSubview(collectionView)
         
-        collectionView.appendConstraints(to: view, withSafeArea: true)
-        
         if #available(iOS 11.0, *) {
             collectionView.contentInsetAdjustmentBehavior = .never
         }
@@ -531,6 +529,15 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
     override open func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
         guard folioReader.isReaderReady else { return }
+        
+        if #available(iOS 11.0, *) {
+            
+            if toInterfaceOrientation != .portraitUpsideDown {
+                collectionView.frame.size.width = pageWidth - view.safeAreaInsets.top - view.safeAreaInsets.bottom
+            }
+            
+            collectionView.center = view.center
+        }
 
         setPageSize(toInterfaceOrientation)
         updateCurrentPage()
@@ -1534,7 +1541,6 @@ extension FolioReaderCenter: FolioReaderChapterListDelegate {
         
         return bounds
     }
-    
 }
 
 extension UIView {
