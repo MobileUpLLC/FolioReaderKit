@@ -532,11 +532,18 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         
         if #available(iOS 11.0, *) {
             
-            if toInterfaceOrientation != .portraitUpsideDown {
-                collectionView.frame.size.width = pageWidth - view.safeAreaInsets.top - view.safeAreaInsets.bottom
+            if toInterfaceOrientation == .landscapeLeft || toInterfaceOrientation == .landscapeRight {
+                
+                collectionView.frame.origin.x = view.safeAreaInsets.bottom
+                
+                collectionView.frame.size.width = pageWidth - view.safeAreaInsets.top
+                
+            } else {
+                
+                collectionView.frame.origin.x = 0
+                
+                collectionView.frame.size.width = pageWidth
             }
-            
-            collectionView.center = view.center
         }
 
         setPageSize(toInterfaceOrientation)
